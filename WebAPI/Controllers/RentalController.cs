@@ -1,5 +1,4 @@
 ﻿using Business.Abstract;
-using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,19 +11,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandController : ControllerBase
+    public class RentalController : ControllerBase
     {
-        private IBrandManager _brandManager;
+        private IRentalManager _rentalManager;
 
-        public BrandController(IBrandManager brandManager)
+        public RentalController(IRentalManager rentalManager)
         {
-            _brandManager = brandManager;
+            _rentalManager = rentalManager;
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        public IActionResult Add(Rental rental)
         {
-            var result = _brandManager.Add(brand);
+            var result = _rentalManager.Add(rental);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -33,9 +32,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Brand brand)
+        public IActionResult Delete(Rental rental)
         {
-            var result = _brandManager.Delete(brand);
+            var result = _rentalManager.Delete(rental);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -43,9 +42,9 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         [HttpPut("update")]
-        public IActionResult Update(Brand brand)
+        public IActionResult Update(Rental rental)
         {
-            var result = _brandManager.Update(brand);
+            var result = _rentalManager.Update(rental);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -57,7 +56,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _brandManager.GetAll();
+            var result = _rentalManager.GetAllList();
             if (result.Success)
             {
                 return Ok(result);
@@ -68,7 +67,18 @@ namespace WebAPI.Controllers
         [HttpGet("get")]
         public IActionResult Get(int id)
         {
-            var result = _brandManager.GetBrand(id);
+            var result = _rentalManager.GetRental(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("details")]
+        public IActionResult GetDetails(int id)
+        {
+            var result = _rentalManager.GetRentalDetails();
             if (result.Success)
             {
                 return Ok(result);

@@ -4,6 +4,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTO_s;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,6 +52,10 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.CarId == rentalId));
         }
 
-       
+        public IDataResult<List<RentalDTO>> GetRentalDetails()
+        {
+            var result = _rentalDal.GetRentalDetails();
+            return new SuccessDataResult<List<RentalDTO>>(result);
+        }
     }
 }

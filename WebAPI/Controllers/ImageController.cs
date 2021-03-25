@@ -15,8 +15,8 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class ImageController : ControllerBase
     {
-        IWebHostEnvironment _environment;
-        ICarImageManager _carImageManager;
+        private IWebHostEnvironment _environment;
+        private ICarImageManager _carImageManager;
         public ImageController(ICarImageManager carImageManager, IWebHostEnvironment environment)
         {
             _carImageManager = carImageManager;
@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
                      * yazma işlemi yapıyoruz , ve bundan sonra cachede durması performans
                      * sorunları yaratacağıdan flush ile cache i temizliyoruz.
                      */
-                   
+
                     formFile.CopyTo(fileStream);
                     fileStream.Flush();
 
@@ -86,7 +86,7 @@ namespace WebAPI.Controllers
                 }
             }
             string guidKey = Guid.NewGuid().ToString("N");
-            using (FileStream  fileStream = System.IO.File.Create(_environment.WebRootPath + GuidFileCreate(formFile,guidKey)))
+            using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + GuidFileCreate(formFile, guidKey)))
             {
                 formFile.CopyTo(fileStream);
                 fileStream.Flush();
@@ -105,7 +105,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll([FromForm]int id)
+        public IActionResult GetAll([FromForm] int id)
         {
             var result = _carImageManager.GetAllList(id);
             if (result.Success)

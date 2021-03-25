@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
         //Loosely coupled , esnek bağlantı  , yani sadece imzaya (interface) ye bağlısın böylelikle manager(concrete)
         //değişssede bir sıkıtn oolmaz
         //IoC Container --- Inversion of Control
-        ICarManager _carManager;
+        private ICarManager _carManager;
         public CarsController(ICarManager carManager)
         {
             _carManager = carManager;
@@ -43,17 +43,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet("get")]
         public IActionResult GetById(int id)
         {
             var result = _carManager.GetById(id);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
             return BadRequest(result);
         }
-        
+
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
@@ -97,7 +97,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpGet("cardetail")]
+        [HttpGet("details")]
         public IActionResult GetDetail()
         {
             var result = _carManager.GetCarDetails();

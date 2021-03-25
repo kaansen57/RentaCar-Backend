@@ -1,5 +1,4 @@
 ﻿using Business.Abstract;
-using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,19 +11,18 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandController : ControllerBase
+    public class CustomerController : ControllerBase
     {
-        private IBrandManager _brandManager;
-
-        public BrandController(IBrandManager brandManager)
+        private ICustomerManager _customerManager;
+        public CustomerController(ICustomerManager customerManager)
         {
-            _brandManager = brandManager;
+            _customerManager = customerManager;
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Brand brand)
+        public IActionResult Add(Customer customer)
         {
-            var result = _brandManager.Add(brand);
+            var result = _customerManager.Add(customer);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -33,19 +31,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Brand brand)
+        public IActionResult Delete(Customer customer)
         {
-            var result = _brandManager.Delete(brand);
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
-        [HttpPut("update")]
-        public IActionResult Update(Brand brand)
-        {
-            var result = _brandManager.Update(brand);
+            var result = _customerManager.Delete(customer);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -53,11 +41,21 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
+        [HttpPost("update")]
+        public IActionResult Update(Customer customer)
+        {
+            var result = _customerManager.Update(customer);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _brandManager.GetAll();
+            var result = _customerManager.GetAllList();
             if (result.Success)
             {
                 return Ok(result);
@@ -68,7 +66,7 @@ namespace WebAPI.Controllers
         [HttpGet("get")]
         public IActionResult Get(int id)
         {
-            var result = _brandManager.GetBrand(id);
+            var result = _customerManager.GetCustomer(id);
             if (result.Success)
             {
                 return Ok(result);

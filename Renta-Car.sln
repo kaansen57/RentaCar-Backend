@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{ECC72B7B-811B-406E-B763-A294A47F9C8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{ECC72B7B-811B-406E-B763-A294A47F9C8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{68205C55-C3E7-43DE-9C8B-EC5B7664E499}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{68205C55-C3E7-43DE-9C8B-EC5B7664E499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{492173F8-187E-4F36-894E-DCE76A5057B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{492173F8-187E-4F36-894E-DCE76A5057B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolUI", "ConsolUI\ConsolUI.csproj", "{EE31BA73-CDD6-4D78-BACD-92A82CB3011B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{07E096CD-4B1A-44BC-AD45-92FD7CD29CAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{07E096CD-4B1A-44BC-AD45-92FD7CD29CAA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{DD1C5F86-CAC6-4CEA-8CD0-D7EA1921C5A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{DD1C5F86-CAC6-4CEA-8CD0-D7EA1921C5A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +31,6 @@ Global
 		{492173F8-187E-4F36-894E-DCE76A5057B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{492173F8-187E-4F36-894E-DCE76A5057B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{492173F8-187E-4F36-894E-DCE76A5057B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE31BA73-CDD6-4D78-BACD-92A82CB3011B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE31BA73-CDD6-4D78-BACD-92A82CB3011B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE31BA73-CDD6-4D78-BACD-92A82CB3011B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE31BA73-CDD6-4D78-BACD-92A82CB3011B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07E096CD-4B1A-44BC-AD45-92FD7CD29CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07E096CD-4B1A-44BC-AD45-92FD7CD29CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E096CD-4B1A-44BC-AD45-92FD7CD29CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -19,7 +19,7 @@ namespace Business.Concrete
     public class CarManager : ICarManager
     {
         private ICarDal _carDal;
-        IBrandManager _brandManager;
+        private IBrandManager _brandManager;
       
 
         //bir entity manager kendi yapısındaki dal hariç başka yapıyı enjekte edemez
