@@ -17,7 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.OpenApi.Models;
 namespace WebAPI
 {
     public class Startup
@@ -38,7 +38,11 @@ namespace WebAPI
             services.AddControllers();
             //services.AddSingleton<ICarManager,CarManager>();
             //services.AddSingleton<ICarDal,EfCarDal>();
-            
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentaCar API", Version = "v1" });
+            });
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -56,11 +60,12 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-            services.AddDependencyResolvers(new ICoreModule[] { 
+            services.AddDependencyResolvers(new ICoreModule[] {
                 new CoreModule()
             });
 
-            services.AddCors(options => {
+            services.AddCors(options =>
+            {
                 options.AddPolicy(allowSpecificOrigins,
                 builder =>
                 {
@@ -72,7 +77,7 @@ namespace WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app,IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -90,11 +95,18 @@ namespace WebAPI
 
             app.UseStaticFiles();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger");
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-          
+
         }
     }
 }
