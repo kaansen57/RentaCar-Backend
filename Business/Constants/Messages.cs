@@ -21,6 +21,7 @@ namespace Business.Constants
         public static string ImageUploadSuccess = "Resim Eklendi!";
         public static string ImageUploadError = "5 Resimden Fazla Olamaz";
         public static string ImageDeleteSuccess = "Resim Silindi";
+        public static string ImageDeleteError = "Resim Silinemedi!";
         public static string ImageUpdateSuccess = "Resim Güncellendi";
         public static string ImageUpdateError = "Resim Güncellenemedi";
         public static string AddSuccess = "Kayıt Başarılı";

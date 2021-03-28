@@ -84,6 +84,18 @@ namespace Business.Concrete
             return  new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.Id == carId),Messages.ProductList);
         }
 
+        [CacheAspect]
+        public IDataResult<List<Car>> GetByBrand(int brandId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId), Messages.ProductList);
+        }
+
+        [CacheAspect]
+        public IDataResult<List<Car>> GetByColor(int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId), Messages.ProductList);
+        }
+
         public IDataResult<List<Car>> GetUnitPriceFilter(int min, int max)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice > min && p.DailyPrice < max));

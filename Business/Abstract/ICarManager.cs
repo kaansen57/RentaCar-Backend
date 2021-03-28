@@ -14,6 +14,8 @@ namespace Business.Abstract
         IResult Update(Car car);
         IDataResult<List<Car>> GetAll(int password);
         IDataResult<List<Car>> GetById(int carId);
+        IDataResult<List<Car>> GetByBrand(int brandId);
+        IDataResult<List<Car>> GetByColor(int colorId);
         IDataResult<List<Car>> GetUnitPriceFilter(int min, int max);
         IDataResult<List<CarDTO>> GetCarDetails();
         IResult AddTransactionalTest(Car car);

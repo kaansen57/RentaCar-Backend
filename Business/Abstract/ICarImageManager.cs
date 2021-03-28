@@ -9,10 +9,10 @@ namespace Business.Abstract
 {
     public interface ICarImageManager
     {
-        IResult Add(CarImage entity);
+        IResult Add(CarImage entity,IFormFile formFile);
         IResult Delete(CarImage entity);
-        IResult Update(CarImage entity);
-        IDataResult<List<CarImage>> GetAllList(int id);
+        IResult Update(CarImage entity, IFormFile formFile);
+        IDataResult<List<CarImage>> GetAllList();
         IDataResult<CarImage> Get(int id);
     }
 }

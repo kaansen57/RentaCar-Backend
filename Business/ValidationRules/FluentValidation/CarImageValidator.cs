@@ -11,8 +11,8 @@ namespace Business.ValidationRules.FluentValidation
         public CarImageValidator()
         {
             RuleFor(c => c.CarId).NotEmpty();
-            RuleFor(c => c.CarId).GreaterThan(0).LessThan(8);
-            RuleFor(c => c.ImagePath).NotEmpty();
+            RuleFor(c => c.CarId).GreaterThan(0).LessThan(20);
+            //RuleFor(c => c.ImagePath).NotEmpty();
             
         }
     }

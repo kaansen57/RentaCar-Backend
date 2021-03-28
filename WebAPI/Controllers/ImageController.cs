@@ -1,7 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,51 +14,22 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class ImageController : ControllerBase
     {
-        private IWebHostEnvironment _environment;
+       
         private ICarImageManager _carImageManager;
-        public ImageController(ICarImageManager carImageManager, IWebHostEnvironment environment)
+        public ImageController(ICarImageManager carImageManager)
         {
             _carImageManager = carImageManager;
-            _environment = environment;
         }
 
         [HttpPost("add")]
         public IActionResult Add([FromForm] CarImage carImage, [FromForm] IFormFile formFile)
         {
-
-            if (formFile.Length > 0)
+            var result = _carImageManager.Add(carImage,formFile);
+            if (result.Success)
             {
-                if (!Directory.Exists(_environment.WebRootPath + @"\Uploads\"))
-                {
-                    Directory.CreateDirectory(_environment.WebRootPath + @"\Uploads\");
-                }
-
-                string guidKey = Guid.NewGuid().ToString("N");
-                using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + GuidFileCreate(formFile, guidKey)))
-                {
-                    /*formdan gelen datayı belleğe yazıp oradan oluşturduğumuz dosyaya
-                     * yazma işlemi yapıyoruz , ve bundan sonra cachede durması performans
-                     * sorunları yaratacağıdan flush ile cache i temizliyoruz.
-                     */
-
-                    formFile.CopyTo(fileStream);
-                    fileStream.Flush();
-
-                    carImage.Date = DateTime.Now;
-                    carImage.ImagePath = GuidFileCreate(formFile, guidKey);
-
-                    var result = _carImageManager.Add(carImage);
-                    if (result.Success)
-                    {
-                        return Ok(result.Message);
-                    }
-                    return BadRequest(result.Message);
-                }
+                return Ok(result.Message);
             }
-            else
-            {
-                return BadRequest(Messages.FileNotRead);
-            }
+            return BadRequest(result.Message);
         }
 
         [HttpPost("delete")]
@@ -68,8 +38,6 @@ namespace WebAPI.Controllers
             var result = _carImageManager.Delete(entity);
             if (result.Success)
             {
-                System.IO.File.SetAttributes(_environment.WebRootPath + entity.ImagePath, FileAttributes.Normal);
-                System.IO.File.Delete(_environment.WebRootPath + entity.ImagePath);
                 return Ok(result.Message);
             }
             return BadRequest(result.Message);
@@ -78,47 +46,37 @@ namespace WebAPI.Controllers
         [HttpPut("update")]
         public IActionResult Update([FromForm] CarImage entity, [FromForm] IFormFile formFile)
         {
-            if (formFile.Length > 0)
+            var result = _carImageManager.Update(entity, formFile);
+
+            if (result.Success)
             {
-                if (!Directory.Exists(_environment.WebRootPath + @"\Uploads\"))
-                {
-                    Directory.CreateDirectory(_environment.WebRootPath + @"\Uploads\");
-                }
+                return Ok(result.Message);
             }
-            string guidKey = Guid.NewGuid().ToString("N");
-            using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + GuidFileCreate(formFile, guidKey)))
-            {
-                formFile.CopyTo(fileStream);
-                fileStream.Flush();
-
-                entity.ImagePath = GuidFileCreate(formFile, guidKey);
-                entity.Date = DateTime.Now;
-
-                var result = _carImageManager.Update(entity);
-
-                if (result.Success)
-                {
-                    return Ok(result.Message);
-                }
-                return BadRequest(result.Message);
-            }
+            return BadRequest(result.Message);
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll([FromForm] int id)
+        [HttpGet("get")]
+        public IActionResult Get([FromForm] int id)
         {
-            var result = _carImageManager.GetAllList(id);
+            var result = _carImageManager.Get(id);
             if (result.Success)
             {
                 return Ok(result.Data);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
-        private string GuidFileCreate(IFormFile formFile, string guidKey)
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
-            var fileType = "." + formFile.ContentType.Split('/')[1];
-            return @"\Uploads\" + guidKey + fileType;
+            var result = _carImageManager.GetAllList();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
         }
+
     }
 }
 

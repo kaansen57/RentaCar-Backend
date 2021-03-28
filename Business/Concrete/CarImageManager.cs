@@ -10,61 +10,94 @@ using Business.Constants;
 using Core.Aspects.Autofac.Validation;
 using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Business;
+using System.IO;
+using Core.Utilities.Helpers;
 
 namespace Business.Concrete
 {
     public class CarImageManager : ICarImageManager
     {
-
         private ICarImageDal _carImageDal;
         public CarImageManager(ICarImageDal carImageDal)
         {
             _carImageDal = carImageDal;
         }
+
         [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Add(CarImage entity)
+        public IResult Add(CarImage carImage, IFormFile formFile)
         {
-            IResult result = BusinessRule.Run(CheckImageLimit(entity));
+            IResult result = BusinessRule.Run(CheckImageLimit(carImage));
             if (result == null)
             {
-                _carImageDal.Add(entity);
+                carImage.Date = DateTime.Now;
+                carImage.ImagePath = FileHelper.Add(formFile);
+                _carImageDal.Add(carImage);
                 return new SuccessResult(Messages.ImageUploadSuccess);
             }
-            return result;
+            return new ErrorResult(Messages.ImageUploadError);
         }
 
-        public IResult Delete(CarImage entity)
+        public IResult Delete(CarImage carImage)
         {
-            _carImageDal.Delete(entity);
-            return new SuccessResult(Messages.ImageDeleteSuccess);
+            try
+            {
+                var deleteImage = _carImageDal.Get(x => x.Id == carImage.Id);
+                if (deleteImage == null)
+                {
+                    return new ErrorResult(Messages.ImageDeleteError);
+                }
+                var deleteResult = FileHelper.Delete(deleteImage.ImagePath);
+
+                if (deleteResult.Success)
+                {
+                    _carImageDal.Delete(carImage);
+                    return new SuccessResult(Messages.ImageDeleteSuccess);
+                }
+                return new ErrorResult(Messages.ImageDeleteError);
+            }
+            catch (Exception)
+            {
+                return new ErrorResult(Messages.ImageDeleteError);
+            }
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Update(CarImage entity)
+        public IResult Update(CarImage carImage, IFormFile formFile)
         {
-            _carImageDal.Update(entity);
-            return new SuccessResult(Messages.ImageUpdateSuccess);
+            try
+            {
+                var deleteImage = _carImageDal.Get(x => x.Id == carImage.Id);
+                if (deleteImage == null)
+                {
+                    return new ErrorResult(Messages.ImageUpdateError);
+                }
+                carImage.ImagePath = FileHelper.Update(deleteImage.ImagePath, formFile);
+                carImage.Date = DateTime.Now;
+                _carImageDal.Update(carImage);
+                return new SuccessResult(Messages.ImageUpdateSuccess);
+            }
+            catch (Exception)
+            {
+                return new SuccessResult(Messages.ImageUpdateError);
+            }
+        
         }
         public IDataResult<CarImage> Get(int id)
         {
-            //var result = _carImageDal.Get(x => x.CarId == id);
-
-            //if (result.ImagePath.Length > 0)
-            //{
-            //    return new SuccessDataResult<CarImage>(result);
-            //}
-            return new ErrorDataResult<CarImage>(_carImageDal.Get(x => x.Id == 21));
-
-        }
-        public IDataResult<List<CarImage>> GetAllList(int id)
-        {
-            var result = _carImageDal.GetAll(x => x.CarId == id && x.Id != 21);
-            if (result.Count == 0)
+            try
             {
-                var defaultImage = _carImageDal.GetAll(x => x.Id == 21);
-                return new SuccessDataResult<List<CarImage>>(defaultImage);
+                var result = _carImageDal.Get(x => x.Id == id);
+                return new SuccessDataResult<CarImage>(result);
             }
+            catch (Exception)
+            {
+                return new ErrorDataResult<CarImage>();
+            }
+        }
+        public IDataResult<List<CarImage>> GetAllList()
+        {
+            var result = _carImageDal.GetAll();
             return new SuccessDataResult<List<CarImage>>(result);
+
         }
 
         private IResult CheckImageLimit(CarImage carImage)
@@ -74,8 +107,9 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.ImageUploadError);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.ImageUploadSuccess);
         }
+
 
     }
 }

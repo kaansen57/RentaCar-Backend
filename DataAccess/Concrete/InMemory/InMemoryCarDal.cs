@@ -87,6 +87,11 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarDTO> GetCarDetails(Expression<Func<CarDTO, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             var updateCar = _car.SingleOrDefault(x => x.Id == car.Id);
