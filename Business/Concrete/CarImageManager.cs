@@ -99,6 +99,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(result);
 
         }
+        public IDataResult<List<CarImage>> GetAllCarId(int carId)
+        {
+            var result = _carImageDal.GetAll(x => x.CarId == carId);
+            return new SuccessDataResult<List<CarImage>>(result);
+
+        }
 
         private IResult CheckImageLimit(CarImage carImage)
         {
