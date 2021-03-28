@@ -15,8 +15,8 @@ namespace Entities.Concrete
         public int ColorId { get; set; }
         public string ColorName { get; set; }
         public int DailyPrice { get; set; }
-        public string ImagePath { get; set; }
-        public DateTime ImageUploadDate { get; set; }
+        //public string ImagePath { get; set; }
+        //public DateTime ImageUploadDate { get; set; }
 
     }
 }
