@@ -12,6 +12,7 @@ using Business.ValidationRules.FluentValidation;
 using Core.Utilities.Business;
 using System.IO;
 using Core.Utilities.Helpers;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -63,7 +64,8 @@ namespace Business.Concrete
 
         public IResult Update(CarImage carImage, IFormFile formFile)
         {
-            try
+            IResult result = BusinessRule.Run(CheckImageLimit(carImage));
+            if (result == null)
             {
                 var deleteImage = _carImageDal.Get(x => x.Id == carImage.Id);
                 if (deleteImage == null)
@@ -75,17 +77,14 @@ namespace Business.Concrete
                 _carImageDal.Update(carImage);
                 return new SuccessResult(Messages.ImageUpdateSuccess);
             }
-            catch (Exception)
-            {
-                return new SuccessResult(Messages.ImageUpdateError);
-            }
-        
+            return new ErrorResult(Messages.ImageUpdateError);
         }
-        public IDataResult<CarImage> Get(int id)
+        public IDataResult<CarImage> Get(int carId)
         {
             try
             {
-                var result = _carImageDal.Get(x => x.Id == id);
+                var result = _carImageDal.Get(x => x.CarId == carId);
+                
                 return new SuccessDataResult<CarImage>(result);
             }
             catch (Exception)
@@ -99,11 +98,15 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(result);
 
         }
-        public IDataResult<List<CarImage>> GetAllCarId(int carId)
+        public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            var result = _carImageDal.GetAll(x => x.CarId == carId);
-            return new SuccessDataResult<List<CarImage>>(result);
+            IResult result = BusinessRule.Run(CheckImageNull(carId));
+            if (result == null)
+            {
+                return new SuccessDataResult<List<CarImage>>(CheckImageNull(carId).Data);
+            }
 
+            return new ErrorDataResult<List<CarImage>>(result.Message);
         }
 
         private IResult CheckImageLimit(CarImage carImage)
@@ -116,6 +119,26 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ImageUploadSuccess);
         }
 
+        private IDataResult<List<CarImage>> CheckImageNull(int carId)
+        {
+            try
+            {
+                var defaultImage = Environment.CurrentDirectory + @"\wwwroot\Uploads\default.png";
+                var result = _carImageDal.GetAll(x => x.CarId == carId).Any();
+                if (!result)
+                {
+                    List<CarImage> carImage = new List<CarImage>();
+                    carImage.Add(new CarImage { CarId = carId, ImagePath = defaultImage, Date = DateTime.Now });
+                    return new SuccessDataResult<List<CarImage>>(carImage);
+                }
+
+                return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(x => x.CarId == carId));
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<List<CarImage>>(ex.Message);
+            }
+        }
 
     }
 }

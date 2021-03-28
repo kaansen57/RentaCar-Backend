@@ -13,7 +13,7 @@ namespace Business.Abstract
         IResult Delete(CarImage entity);
         IResult Update(CarImage entity, IFormFile formFile);
         IDataResult<List<CarImage>> GetAllList();
-        IDataResult<List<CarImage>> GetAllCarId(int carId);
+        IDataResult<List<CarImage>> GetByCarId(int carId);
         IDataResult<CarImage> Get(int id);
     }
 }

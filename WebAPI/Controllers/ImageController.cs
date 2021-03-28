@@ -56,9 +56,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get")]
-        public IActionResult Get(int id)
+        public IActionResult Get(int carId)
         {
-            var result = _carImageManager.Get(id);
+            var result = _carImageManager.Get(carId);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -78,9 +78,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getcarid")]
-        public IActionResult GetAllId(int carId)
+        public IActionResult GetByCarId(int carId)
         {
-            var result = _carImageManager.GetAllCarId(carId);
+            var result = _carImageManager.GetByCarId(carId);
             if (result.Success)
             {
                 return Ok(result.Data);
