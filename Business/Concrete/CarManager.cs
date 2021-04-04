@@ -46,7 +46,7 @@ namespace Business.Concrete
                 return result;
             }
             _carDal.Add(car);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.CarAdded);
         }
 
         public IResult Delete(Car car)
@@ -66,48 +66,59 @@ namespace Business.Concrete
 
         [CacheAspect]
         [PerformanceAspect(5)]
-        public IDataResult<List<Car>> GetAll(int password)
+        public IDataResult<List<Car>> GetAll()
         {
-            if (password == 1234)
-            {
-                return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ProductList);
-            }
-            else
-            {
-               return new ErrorDataResult<List<Car>>(Messages.ProductListError);
-            }
+             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarList);
         }
 
         [CacheAspect]
         public IDataResult<List<Car>> GetById(int carId)
         {
-            return  new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.Id == carId),Messages.ProductList);
+            return  new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.Id == carId),Messages.CarList);
         }
 
         [CacheAspect]
         public IDataResult<List<Car>> GetByBrand(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId), Messages.ProductList);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId), Messages.CarList);
         }
 
         [CacheAspect]
         public IDataResult<List<Car>> GetByColor(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId), Messages.ProductList);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId), Messages.CarList);
         }
-
-        public IDataResult<List<Car>> GetUnitPriceFilter(int min, int max)
+        [CacheAspect]
+        public IDataResult<List<CarDTO>> GetUnitPriceFilter(int min, int max)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice > min && p.DailyPrice < max));
+            return new SuccessDataResult<List<CarDTO>>(_carDal.GetCarDetails(c => c.DailyPrice >= min && c.DailyPrice <= max));
         }
-
+        [CacheAspect]
         public IDataResult<List<CarDTO>> GetCarDetails()
         {
             var cardto = _carDal.GetCarDetails();
             return new SuccessDataResult<List<CarDTO>>(cardto); 
         }
-      
-         private IResult CheckBrandCountCorrect(int brandId)
+        [CacheAspect]
+        public IDataResult<List<CarDTO>> GetCarDetailsId(int carId)
+        {
+            var cardto = _carDal.GetCarDetails(x=>x.CarId == carId);
+            return new SuccessDataResult<List<CarDTO>>(cardto);
+        }
+        [CacheAspect]
+        public IDataResult<List<CarDTO>> GetCarDetailsByBrand(int brandId)
+        {
+            var cardto = _carDal.GetCarDetails(x => x.BrandId == brandId);
+            return new SuccessDataResult<List<CarDTO>>(cardto);
+        }
+        [CacheAspect]
+        public IDataResult<List<CarDTO>> GetCarDetailsByColor(int colorId)
+        {
+            var cardto = _carDal.GetCarDetails(x => x.ColorId == colorId);
+            return new SuccessDataResult<List<CarDTO>>(cardto);
+        }
+
+        private IResult CheckBrandCountCorrect(int brandId)
         {
               
             var result = _carDal.GetAll(x => x.BrandId == brandId).Count;
@@ -151,5 +162,7 @@ namespace Business.Concrete
             Add(car);
             return new SuccessResult();
         }
+
+        
     }
 }

@@ -6,10 +6,12 @@ namespace Business.Constants
 {
    public static class Messages
     {
-        public static string ProductAdded = "Ürün Eklendi";
-        public static string ProductAddedError = "Ürün Eklenemedi";
-        public static string ProductList = "Ürünler Listenlendi";
-        public static string ProductListError = "Ürünler Listenlendi";
+
+        public static string CarAdded = "Araba Eklendi";
+        public static string CustomerAdded = "Müşteri Eklendi";
+        public static string CustomerDelete = "Müşteri Silindi";
+        public static string CustomerUpdate = "Müşteri Güncellendi";
+        public static string CarList = "Arabalar Listenlendi";
         public static string AuthorizationDenied = "Yetkilendirme Hatası";
         public static string UserRegistered = "Kullanıcı Kaydı Başarılı!";
         public static string UserAlreadyExists = "Aynı Kullanıcı Mevcut!";
@@ -30,5 +32,9 @@ namespace Business.Constants
         public static string DeleteError = "Silme Başarısız";
         public static string UpdateSuccess = "Güncelleme Başarılı";
         public static string UpdateError = "Güncelleme Başarısız";
+        public static string RentalAddError = "Kiralama Yapılamadı! Araç filoda değil !";
+        public static string RentalAdd = "Kiralama Yapıldı!";
+      
+       
     }
 }

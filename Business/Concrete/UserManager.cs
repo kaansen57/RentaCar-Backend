@@ -41,7 +41,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetCustomer(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId), Messages.ProductList);
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId), Messages.CarList);
         }
 
     }

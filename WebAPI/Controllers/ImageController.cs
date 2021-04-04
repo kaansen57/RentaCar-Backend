@@ -72,7 +72,18 @@ namespace WebAPI.Controllers
             var result = _carImageManager.GetAllList();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getimage")]
+        public IActionResult GetSingleImageList()
+        {
+            var result = _carImageManager.GetAllSingleList();
+            if (result.Success)
+            {
+                return Ok(result);
             }
             return BadRequest(result.Message);
         }
@@ -83,7 +94,7 @@ namespace WebAPI.Controllers
             var result = _carImageManager.GetByCarId(carId);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
             return BadRequest(result.Message);
         }

@@ -16,27 +16,47 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarContext carContext = new CarContext())
             {
-                var details = from c in carContext.Car
-                              join b in carContext.Brand
-                              on c.BrandId equals b.BrandId
-                              join co in carContext.Color
-                              on c.ColorId equals co.ColorId
-                              select new CarDTO
-                              {
-                                  CarId = c.Id,
-                                  CarName = c.CarName,
-                                  BrandId = b.BrandId,
-                                  BrandName = b.BrandName,
-                                  ColorId = co.ColorId,
-                                  ColorName = co.ColorName,
-                                  DailyPrice = c.DailyPrice,
-                              };
-               return filter == null ? details.ToList() : details.Where(filter).ToList();
-                //return  details.ToList() ;
+                var result = from c in carContext.Car
+                                join b in carContext.Brand
+                                on c.BrandId equals b.BrandId
+                                join co in carContext.Color
+                                on c.ColorId equals co.ColorId
+                               
+                                select new CarDTO
+                                {
+                                    CarId = c.Id,
+                                    CarName = c.CarName,
+                                    BrandId = b.BrandId,
+                                    BrandName = b.BrandName,
+                                    ColorId = co.ColorId,
+                                    ColorName = co.ColorName,
+                                    DailyPrice = c.DailyPrice,
+                                };
+
+                //var rightOuter = from c in carContext.Car
+                //                 from im in carContext.CarImages
+                //                 join b in carContext.Brand
+                //                 on c.BrandId equals b.BrandId
+                //                 join co in carContext.Color
+                //                 on c.ColorId equals co.ColorId
+                //                 where c.Id != im.CarId
+                //                 select new CarDTO
+                //                 {
+                //                     CarId = c.Id,
+                //                     CarName = c.CarName,
+                //                     BrandId = b.BrandId,
+                //                     BrandName = b.BrandName,
+                //                     ColorId = co.ColorId,
+                //                     ColorName = co.ColorName,
+                //                     DailyPrice = c.DailyPrice,
+                //                     ImagePath = @"\Uploads\default.png" ,
+                //                     ImageUploadDate =  DateTime.Now,
+                //                 };
+                //var result = leftOuter.Union(rightOuter);
+                return filter == null ? result.ToList() : result.Where(filter).ToList();
             }
-            
         }
 
+        
     }
-
 }

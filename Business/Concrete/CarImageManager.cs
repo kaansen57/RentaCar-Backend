@@ -94,9 +94,13 @@ namespace Business.Concrete
         }
         public IDataResult<List<CarImage>> GetAllList()
         {
-            var result = _carImageDal.GetAll();
-            return new SuccessDataResult<List<CarImage>>(result);
+            IResult result = BusinessRule.Run(CheckImageAllNull());
+            if (result == null)
+            {
+                return new SuccessDataResult<List<CarImage>>(CheckImageAllNull().Data);
+            }
 
+            return new ErrorDataResult<List<CarImage>>(result.Message);
         }
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
@@ -123,7 +127,7 @@ namespace Business.Concrete
         {
             try
             {
-                var defaultImage = Environment.CurrentDirectory + @"\wwwroot\Uploads\default.png";
+                var defaultImage = @"\Uploads\default.png";
                 var result = _carImageDal.GetAll(x => x.CarId == carId).Any();
                 if (!result)
                 {
@@ -139,6 +143,32 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<CarImage>>(ex.Message);
             }
         }
+        private IDataResult<List<CarImage>> CheckImageAllNull()
+        {
+            try
+            {
+                var defaultImage = @"\Uploads\default.png";
+                var result = _carImageDal.GetAll().Any();
+                if (!result)
+                {
+                    List<CarImage> carImage = new List<CarImage>();
+                    carImage.Add(new CarImage { CarId = 0, ImagePath = defaultImage, Date = DateTime.Now });
+                    return new SuccessDataResult<List<CarImage>>(carImage);
+                }
 
+                return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<List<CarImage>>(ex.Message);
+            }
+        }
+
+        public IDataResult<List<CarImage>> GetAllSingleList()
+        {
+            var result = _carImageDal.GetCarImage();
+           return new SuccessDataResult<List<CarImage>>(result);
+          
+        }
     }
 }

@@ -7,6 +7,7 @@ using Entities.Concrete;
 using Entities.DTO_s;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -26,32 +27,41 @@ namespace Business.Concrete
             if (result.ReturnDate != null && result.ReturnDate < rental.RentDate)
             {
                 _rentalDal.Add(rental);
-                return new SuccessResult("Kiralama Yapıldı!");
+                return new SuccessResult(Messages.RentalAdd);
             }
-            return new ErrorResult("Kiralama Yapılamadı! Araç filoda değil !");
+            return new ErrorResult(Messages.RentalAddError);
         }
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new SuccessResult("SİLİNDİ");
+            return new SuccessResult(Messages.DeleteSuccess);
         }
 
         public IResult Update(Rental rental)
         {
             rental.RentDate = DateTime.Now;
             _rentalDal.Update(rental);
-            return new SuccessResult("GÜNCELLENDİ");
+            return new SuccessResult(Messages.UpdateSuccess);
         }
         public IDataResult<List<Rental>> GetAllList()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.ProductList);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.CarList);
         }
 
-        public IDataResult<Rental> GetRental(int rentalId)
+        public IDataResult<List<Rental>> GetRental(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.CarId == rentalId));
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.CarId == rentalId));
         }
+        public IResult GetRentalDate(int carId , DateTime rentDate , DateTime returnDate)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId == carId && r.ReturnDate >= rentDate && r.RentDate <= returnDate);
+            if (result.Any())
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
 
+        }
         public IDataResult<List<RentalDTO>> GetRentalDetails()
         {
             var result = _rentalDal.GetRentalDetails();

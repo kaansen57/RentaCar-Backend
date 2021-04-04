@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("details")]
-        public IActionResult GetDetails(int id)
+        public IActionResult GetDetails()
         {
             var result = _rentalManager.GetRentalDetails();
             if (result.Success)
@@ -84,6 +84,17 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("rentalcheck")]
+        public IActionResult RentalCheck(int carId, DateTime rentDate,DateTime returnDate)
+        {
+            var result = _rentalManager.GetRentalDate(carId, rentDate,returnDate);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return Ok(result);
         }
     }
 }

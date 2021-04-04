@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         {
             //Dependecy chain bağlımlılık zinciri car manager efcardal'a bağımlı
             //CarManager carManager = new CarManager(new EfCarDal());
-            var result = _carManager.GetAll(1234);
+            var result = _carManager.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -119,9 +119,53 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("details")]
-        public IActionResult GetDetail()
+        public IActionResult GetDetails()
         {
             var result = _carManager.GetCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        
+
+        [HttpGet("detailsbyid")]
+        public IActionResult GetDetailId(int carId)
+        {
+            var result = _carManager.GetCarDetailsId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("detailsbybrandid")]
+        public IActionResult GetDetailBrandId(int brandId)
+        {
+            var result = _carManager.GetCarDetailsByBrand(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("detailsbycolorid")]
+        public IActionResult GetDetailColorId(int colorId)
+        {
+            var result = _carManager.GetCarDetailsByColor(colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getpricefilter")]
+        public IActionResult GetPriceFilter(int min , int max)
+        {
+            var result = _carManager.GetUnitPriceFilter(min,max);
             if (result.Success)
             {
                 return Ok(result);
