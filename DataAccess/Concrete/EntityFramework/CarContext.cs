@@ -32,6 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Fuel> Fuel { get; set; }
         public DbSet<Gear> Gear { get; set; }
         public DbSet<CarProperty> CarProperties { get; set; }
+        public DbSet<RentalTerm> RentalTerm { get; set; }
        
 
     }

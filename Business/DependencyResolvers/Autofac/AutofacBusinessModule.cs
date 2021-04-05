@@ -56,6 +56,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CreditCardManager>().As<ICreditCardManager>().SingleInstance();
             builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
 
+            builder.RegisterType<RentalTermManager>().As<IRentalTermManager>().SingleInstance();
+            builder.RegisterType<EfRentalTermDal>().As<IRentalTermDal>().SingleInstance();
+
             builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
 
             builder.RegisterType<UserJwtManager>().As<IUserJwtManager>();
