@@ -9,12 +9,12 @@ namespace Business.Concrete
 {
     public class CarClassManager : ICarClassManager
     {
-        public IResult Add(CarClass brand)
+        public IResult Add(CarClass carClass)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Delete(CarClass brand)
+        public IResult Delete(CarClass carClass)
         {
             throw new NotImplementedException();
         }
@@ -29,7 +29,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IResult Update(CarClass brand)
+        public IResult Update(CarClass carClass)
         {
             throw new NotImplementedException();
         }

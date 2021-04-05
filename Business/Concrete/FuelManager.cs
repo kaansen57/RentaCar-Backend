@@ -8,12 +8,12 @@ namespace Business.Concrete
 {
     public class FuelManager : IFuelManager
     {
-        public IResult Add(Fuel brand)
+        public IResult Add(Fuel fuel)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Delete(Fuel brand)
+        public IResult Delete(Fuel fuel)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IResult Update(Fuel brand)
+        public IResult Update(Fuel fuel)
         {
             throw new NotImplementedException();
         }

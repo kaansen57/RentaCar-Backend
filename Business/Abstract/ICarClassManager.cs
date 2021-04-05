@@ -6,9 +6,9 @@ namespace Business.Abstract
 {
     public interface ICarClassManager
     {
-        IResult Add(CarClass brand);
-        IResult Delete(CarClass brand);
-        IResult Update(CarClass brand);
+        IResult Add(CarClass carClass);
+        IResult Delete(CarClass carClass);
+        IResult Update(CarClass carClass);
         IDataResult<List<CarClass>> GetAllList();
         IDataResult<CarClass> GetCarClass(int id);
     }

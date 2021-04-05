@@ -8,12 +8,12 @@ namespace Business.Concrete
 {
     public class GearManager : IGearManager
     {
-        public IResult Add(Gear brand)
+        public IResult Add(Gear gear)
         {
             throw new NotImplementedException();
         }
 
-        public IResult Delete(Gear brand)
+        public IResult Delete(Gear gear)
         {
             throw new NotImplementedException();
         }
@@ -28,7 +28,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
-        public IResult Update(Gear brand)
+        public IResult Update(Gear gear)
         {
             throw new NotImplementedException();
         }

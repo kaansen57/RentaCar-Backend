@@ -21,7 +21,8 @@ namespace DataAccess.Concrete.EntityFramework
                                 on c.BrandId equals b.BrandId
                                 join co in carContext.Color
                                 on c.ColorId equals co.ColorId
-                               
+                                join cp in carContext.CarProperties
+                                on c.CarProperty equals cp.Id
                                 select new CarDTO
                                 {
                                     CarId = c.Id,
@@ -31,6 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
                                     ColorId = co.ColorId,
                                     ColorName = co.ColorName,
                                     DailyPrice = c.DailyPrice,
+                                    CarPropertyId = cp.Id
                                 };
 
                 //var rightOuter = from c in carContext.Car

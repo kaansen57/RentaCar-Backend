@@ -41,6 +41,21 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageManager>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
 
+            builder.RegisterType<CarPropertyManager>().As<ICarPropertyManager>().SingleInstance();
+            builder.RegisterType<EfCarPropertyDal>().As<ICarPropertyDal>().SingleInstance();
+
+            builder.RegisterType<FuelManager>().As<IFuelManager>().SingleInstance();
+            builder.RegisterType<EfFuelDal>().As<IFuelDal>().SingleInstance();
+
+            builder.RegisterType<GearManager>().As<IGearManager>().SingleInstance();
+            builder.RegisterType<EfGearDal>().As<IGearDal>().SingleInstance();
+
+            builder.RegisterType<CarClassManager>().As<ICarClassManager>().SingleInstance();
+            builder.RegisterType<EfCarClassDal>().As<ICarClassDal>().SingleInstance();
+
+            builder.RegisterType<CreditCardManager>().As<ICreditCardManager>().SingleInstance();
+            builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
+
             builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
 
             builder.RegisterType<UserJwtManager>().As<IUserJwtManager>();
@@ -48,7 +63,8 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthManager>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
-            
+
+           
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

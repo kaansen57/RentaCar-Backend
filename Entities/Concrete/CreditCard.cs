@@ -7,7 +7,8 @@ namespace Entities.Concrete
     {
         public int Id { get; set; }
         public string CardNumber { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public string ExpirationMonth { get; set; }
+        public string ExpirationYear{ get; set; }
         public string Cvv { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }

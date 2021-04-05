@@ -27,6 +27,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<UserJWT> UsersJWT { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<CarImage> CarImages { get; set; }
+        public DbSet<CreditCard> CreditCard { get; set; }
         public DbSet<CarClass> CarClass { get; set; }
         public DbSet<Fuel> Fuel { get; set; }
         public DbSet<Gear> Gear { get; set; }

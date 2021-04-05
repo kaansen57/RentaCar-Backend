@@ -7,7 +7,7 @@ namespace Entities.Concrete
     public class Fuel : IEntity
     {
         public int Id { get; set; }
-        public string FuelName { get; set; }
+        public string FuelType{ get; set; }
     }
 
 }
