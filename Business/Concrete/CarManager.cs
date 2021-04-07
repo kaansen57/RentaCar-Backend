@@ -30,7 +30,7 @@ namespace Business.Concrete
             _brandManager = brandManager;
          
         }
-        [SecuredOperation("Admin,User")]
+        //[SecuredOperation("Admin,User")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarManager.Get")]
         public IResult Add(Car car)

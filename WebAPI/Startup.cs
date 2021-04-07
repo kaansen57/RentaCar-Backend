@@ -35,7 +35,7 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             //services.AddSingleton<ICarManager,CarManager>();
             //services.AddSingleton<ICarDal,EfCarDal>();
 

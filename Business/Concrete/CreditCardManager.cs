@@ -29,8 +29,8 @@ namespace Business.Concrete
                 && x.ExpirationMonth == creditCard.ExpirationMonth
                 && x.ExpirationYear == creditCard.ExpirationYear
                 && x.Cvv == creditCard.Cvv
-                && x.CustomerName == creditCard.CustomerName
-                && x.CustomerSurname == creditCard.CustomerSurname
+                && x.CustomerName.ToLower() == creditCard.CustomerName.ToLower()
+                && x.CustomerSurname.ToLower() == creditCard.CustomerSurname.ToLower()
                 );
 
             if (result.Count == 0)

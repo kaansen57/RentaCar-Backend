@@ -20,15 +20,15 @@ namespace WebAPI.Controllers
             _rentalManager = rentalManager;
         }
 
-        [HttpPost("add")]
+        [HttpPost("addrental")]
         public IActionResult Add(Rental rental)
         {
             var result = _rentalManager.Add(rental);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]

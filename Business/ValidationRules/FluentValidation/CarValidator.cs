@@ -32,9 +32,9 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.CarName).MinimumLength(2);
         }
 
-        private bool StartWithA(string arg)
-        {
-            return arg.StartsWith("K");
-        }
+        //private bool StartWithA(string arg)
+        //{
+        //    return arg.StartsWith("K");
+        //}
     }
 }
