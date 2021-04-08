@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
+
 namespace WebAPI
 {
     public class Startup
@@ -36,6 +38,8 @@ namespace WebAPI
         {
 
             services.AddControllers().AddNewtonsoftJson();
+           // services.AddControllers();
+
             //services.AddSingleton<ICarManager,CarManager>();
             //services.AddSingleton<ICarDal,EfCarDal>();
 
@@ -83,6 +87,8 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureCustomExceptionMiddleware();
+
             app.UseCors(allowSpecificOrigins);
 
             app.UseHttpsRedirection();

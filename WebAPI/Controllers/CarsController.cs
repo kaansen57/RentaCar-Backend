@@ -74,7 +74,8 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
+        
+             
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
@@ -96,18 +97,19 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
-        [HttpDelete("deleteatt")]
-        public IActionResult Deleteatt(Car car)
-        {
-            var result = _carManager.Delete(car);
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-            return BadRequest(result.Message);
-        }
 
-        [HttpPut("put")]
+        //[HttpDelete("delete")]
+        //public IActionResult Delete(Car car)
+        //{
+        //    var result = _carManager.Delete(car);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result.Message);
+        //    }
+        //    return BadRequest(result.Message);
+        //}
+
+        [HttpPut("update")]
         public IActionResult Update(Car car)
         {
             var result = _carManager.Update(car);
