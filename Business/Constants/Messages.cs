@@ -7,7 +7,10 @@ namespace Business.Constants
    public static class Messages
     {
 
-        public static string CarAdded = "Araba Eklendi";
+        public static string CarAdded = "Araba Eklendi!";
+        public static string CarUpdated = "Araba Güncellendi!";
+        public static string CarSameData = "Aynı araç mevcut!";
+        public static string CarBrandLimit = "Marka limiti aşıldı !";
         public static string CustomerAdded = "Müşteri Eklendi";
         public static string CustomerDelete = "Müşteri Silindi";
         public static string CustomerUpdate = "Müşteri Güncellendi";

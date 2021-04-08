@@ -25,7 +25,7 @@ namespace DataAccess.Concrete.EntityFramework
                                 on c.CarProperty equals cp.Id
                                 select new CarDTO
                                 {
-                                    CarId = c.Id,
+                                    Id = c.Id,
                                     CarName = c.CarName,
                                     BrandId = b.BrandId,
                                     BrandName = b.BrandName,

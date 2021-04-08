@@ -38,7 +38,7 @@ namespace Business.Concrete
          IResult result = BusinessRule.Run(
                 CheckBrandCountCorrect(car.BrandId)
                 ,CheckDuplicateCarName(car.CarName)
-                 ,CheckBrandLimit()
+                 //,CheckBrandLimit()
                 );
         
             if (result != null)
@@ -48,20 +48,20 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
-
+        [CacheRemoveAspect("ICarManager.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult(Messages.AddSuccess);
+            return new SuccessResult(Messages.DeleteSuccess);
         }
 
-        [SecuredOperation("Admin,User")]
+        //[SecuredOperation("Admin,User")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarManager.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccessResult("Ürün Eklendi!");
+            return new SuccessResult(Messages.CarUpdated);
         }
 
         [CacheAspect]
@@ -102,7 +102,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<CarDTO>> GetCarDetailsId(int carId)
         {
-            var cardto = _carDal.GetCarDetails(x=>x.CarId == carId);
+            var cardto = _carDal.GetCarDetails(x=>x.Id == carId);
             return new SuccessDataResult<List<CarDTO>>(cardto);
         }
         [CacheAspect]
@@ -120,11 +120,11 @@ namespace Business.Concrete
 
         private IResult CheckBrandCountCorrect(int brandId)
         {
-              
+            int limit = 5;
             var result = _carDal.GetAll(x => x.BrandId == brandId).Count;
-            if (result > 2)
+            if (result > limit)
             {
-                return new ErrorResult("2den fazla brand idye kayıtlı");
+                return new ErrorResult( "Aynı Markaya "+limit+"'den fazla araç eklenemez!");
             }
             return new SuccessResult();
         }
@@ -136,18 +136,18 @@ namespace Business.Concrete
             var result = _carDal.GetAll(x => x.CarName == carName).Count;
             if (result>0)
             {
-                return new ErrorResult("Aynı isimde data mevcut");
+                return new ErrorResult(Messages.CarSameData);
             }
             return new SuccessResult();
         }
 
         private IResult CheckBrandLimit()
         {
-            var result = _brandManager.GetAll().Data.Count;
-            if (result > 10)
-            {
-                return new ErrorResult("Marka limiti aşıldı");
-            }
+            //var result = _brandManager.GetAll().Data.Count;
+            //if (result > 10)
+            //{
+            //    return new ErrorResult(Messages.CarBrandLimit);
+            //}
             return new SuccessResult();
         }
 

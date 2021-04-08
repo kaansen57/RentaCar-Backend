@@ -10,7 +10,7 @@ namespace Entities.Concrete
     public class CarDTO : IDto
     {
         [Key]
-        public int CarId { get; set; }
+        public int Id { get; set; }
         public string CarName { get; set; }
         public int BrandId { get; set; }
         public string BrandName { get; set; }
