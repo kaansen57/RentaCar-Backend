@@ -12,6 +12,8 @@ namespace Business.Abstract
         IResult Delete(Customer customer);
         IResult Update(Customer customer);
         IDataResult<List<Customer>> GetAllList();
-        IDataResult<Customer>GetCustomer(int customerId);
+        IDataResult<List<Customer>> GetCustomer(int customerId);
+        IDataResult<List<Customer>> GetCustomerByUserId(int userId);
+
     }
 }

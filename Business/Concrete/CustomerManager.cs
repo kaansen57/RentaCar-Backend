@@ -37,14 +37,19 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CustomerUpdate);
         }
         [CacheAspect]
-        public IDataResult<Customer>GetCustomer(int customerId)
+        public IDataResult<List<Customer>> GetCustomer(int customerId)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == customerId), Messages.CarList);
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(c => c.Id == customerId));
+        }
+
+        public IDataResult<List<Customer>> GetCustomerByUserId(int userId)
+        {
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(c => c.UserId == userId));
         }
         [CacheAspect]
         public IDataResult<List<Customer>> GetAllList() { 
             var customer =  _customerDal.GetAll();
-            return new SuccessDataResult<List<Customer>>(customer, Messages.CarList);
+            return new SuccessDataResult<List<Customer>>(customer);
         }
     }
 }

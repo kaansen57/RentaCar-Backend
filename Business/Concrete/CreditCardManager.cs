@@ -62,7 +62,12 @@ namespace Business.Concrete
             var result = _creditCardDal.GetAll(x=>x.Id == id);
             return new SuccessDataResult<List<CreditCard>>(result);
         }
+        public IDataResult<List<CreditCard>> GetUserCreditCard(int userId)
+        {
+            var result = _creditCardDal.GetAll(x => x.UserId == userId);
+            return new SuccessDataResult<List<CreditCard>>(result);
+        }
 
-       
+
     }
 }

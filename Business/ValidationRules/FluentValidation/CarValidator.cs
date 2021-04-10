@@ -16,7 +16,7 @@ namespace Business.ValidationRules.FluentValidation
 
             //ColorID
             RuleFor(c => c.ColorId).NotEmpty();
-            RuleFor(c => c.ColorId).GreaterThan(0).LessThan(8);
+            //RuleFor(c => c.ColorId).GreaterThan(0).LessThan(8);
             //BrandID
             RuleFor(c => c.BrandId).NotEmpty();
             //DailPrice

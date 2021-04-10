@@ -33,7 +33,8 @@ namespace DataAccess.Concrete.EntityFramework
                                     ColorName = co.ColorName,
                                     DailyPrice = c.DailyPrice,
                                     CarPropertyId = cp.Id,
-                                    ModelYear = c.ModelYear
+                                    ModelYear = c.ModelYear,
+                                    FindexScore = c.FindexScore
                                 };
 
                 //var rightOuter = from c in carContext.Car

@@ -19,7 +19,7 @@ namespace Entities.Concrete
         public int DailyPrice { get; set; }
         public int CarPropertyId { get; set; }
         public string ModelYear  { get; set; }
-
+        public int FindexScore { get; set; }
 
     }
 }

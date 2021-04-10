@@ -19,14 +19,14 @@ namespace WebAPI.Controllers
             _creditCardManager = creditCardManager;
         }
         [HttpPost("cardadd")]
-        public IActionResult CreditCardAdd([FromForm]CreditCard creditCard)
+        public IActionResult CreditCardAdd(CreditCard creditCard)
         {
             var result = _creditCardManager.Add(creditCard);
             if (result.Success)
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
 
         [HttpPost("cardDelete")]
@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
 
         [HttpPost("cardUpdate")]
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
 
         [HttpGet("getcardall")]
@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
         }
 
         [HttpGet("getcardbyid")]
@@ -70,7 +70,18 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getusercards")]
+        public IActionResult CreditCardByUserId(int userId)
+        {
+            var result = _creditCardManager.GetUserCreditCard(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
         }
 
 

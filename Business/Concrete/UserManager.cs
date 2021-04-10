@@ -30,18 +30,12 @@ namespace Business.Concrete
         }
         public IResult Update(User user)
         {
-            user.Password = "000000";
             _userDal.Update(user);
             return new SuccessResult("Güncellendi");
         }
         public IDataResult<List<User>> GetAllList()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
-        }
-
-        public IDataResult<User> GetCustomer(int userId)
-        {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId), Messages.CarList);
         }
 
     }

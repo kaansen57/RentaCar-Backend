@@ -16,6 +16,7 @@ namespace Entities.Concrete
         public string Description { get; set; }
         public string CarName { get; set; }
         public int CarProperty { get; set; }
+        public int FindexScore { get; set; }
 
     }
 }

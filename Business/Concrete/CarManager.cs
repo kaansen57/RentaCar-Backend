@@ -30,7 +30,7 @@ namespace Business.Concrete
             _brandManager = brandManager;
          
         }
-        //[SecuredOperation("Admin,User")]
+        //[SecuredOperation("Admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarManager.Get")]
         public IResult Add(Car car)
@@ -48,6 +48,8 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
+
+        //[SecuredOperation("Admin")]
         [CacheRemoveAspect("ICarManager.Get")]
         public IResult Delete(Car car)
         {
@@ -55,7 +57,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.DeleteSuccess);
         }
 
-        //[SecuredOperation("Admin,User")]
+        //[SecuredOperation("Admin")]
         [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarManager.Get")]
         public IResult Update(Car car)

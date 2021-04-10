@@ -32,5 +32,31 @@ namespace Business.Concrete
         {   
             return _userDal.Get(u => u.Email == email);
         }
+
+        public IDataResult<List<UserJWT>> GetAll()
+        {
+            return new SuccessDataResult<List<UserJWT>>(_userDal.GetAll(),"Kullanıcılar Listelendi");
+        }
+        public IDataResult<List<UserJWT>> GetUser(string email)
+        {
+            return new SuccessDataResult<List<UserJWT>>(_userDal.GetAll(x=>x.Email == email), "Kullanıcılar Listelendi");
+        }
+
+        public IDataResult<List<UserJWT>> GetById(int id)
+        {
+            return new SuccessDataResult<List<UserJWT>>(_userDal.GetAll(x => x.Id == id), "Kullanıcılar Listelendi");
+        }
+
+        public IResult Update(UserJWT user)
+        {
+             _userDal.Update(user);
+            return new SuccessResult();
+        }
+
+        public IResult Delete(UserJWT user)
+        {
+            _userDal.Delete(user);
+            return new SuccessResult();
+        }
     }
 }

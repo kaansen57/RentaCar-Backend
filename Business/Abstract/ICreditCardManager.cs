@@ -12,5 +12,6 @@ namespace Business.Abstract
         IResult CreditCardChecker(CreditCard creditCard);
         IDataResult<List<CreditCard>> GetAllList();
         IDataResult<List<CreditCard>> GetCreditCard(int id);
+        IDataResult<List<CreditCard>> GetUserCreditCard(int userId);
     }
 }

@@ -37,7 +37,7 @@ namespace Business.Constants
         public static string UpdateError = "Güncelleme Başarısız";
         public static string RentalAddError = "Kiralama Yapılamadı! Araç filoda değil !";
         public static string RentalAdd = "Kiralama Yapıldı!";
-      
+        public static string CardSaved = "Kart Kaydedildi!";
        
     }
 }
