@@ -49,6 +49,11 @@ namespace Business.Concrete
 
         public IResult Update(UserJWT user)
         {
+            var result = _userDal.GetAll(x => x.Email == user.Email);
+            if (result.Any())
+            {
+                return new ErrorResult();
+            }
              _userDal.Update(user);
             return new SuccessResult();
         }
