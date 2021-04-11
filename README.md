@@ -18,19 +18,22 @@ Url : " https://localhost:44383/api/cars/details "
 
 ## 📌 Output 
 ```json
-    {
-"data":[{
-"id":1,
-"carName":"Cla 180",
-"brandId":1,
-"brandName":"Mercedes",
-"colorId":1,
-"colorName":"Siyah",
-"dailyPrice":300,
-"carPropertyId":2,
-"modelYear":"2015",
-"findexScore":1500
-}],
-"success":true,"message":null}
+  {
+	"data":[
+                {
+                  "id":1,
+                  "carName":"Cla 180",
+                  "brandId":1,
+                  "brandName":"Mercedes",
+                  "colorId":1,
+                  "colorName":"Siyah",
+                  "dailyPrice":300,
+                  "carPropertyId":2,
+                  "modelYear":"2015",
+                  "findexScore":1500
+                }
+              ],
+	"success":true,
+	"message":null}
 
 ```
